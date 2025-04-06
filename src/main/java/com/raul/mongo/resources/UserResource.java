@@ -1,26 +1,28 @@
 package com.raul.mongo.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.raul.mongo.domain.User;
+import com.raul.mongo.services.UserService;
 
 @RestController
-@RequestMapping(value="/Users")
+@RequestMapping(value="/users")
 public class UserResource {
 
-	@RequestMapping(method= RequestMethod.GET)
+	@Autowired
+	private UserService service;
+	
+	
+	@GetMapping
 	public ResponseEntity<List<User>> findAll(){
-		User maria = new User("maria xiquinha", "maria@gmail.com", 1);
-		User pedro = new User("pedro ferreira", "pedro@gmail.com", 2);
-		List<User> list = new ArrayList<>();
-		list.add(pedro);
-		list.add(maria);
+		
+		List<User> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 }
