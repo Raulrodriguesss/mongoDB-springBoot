@@ -11,20 +11,19 @@ public class User implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
-	private String name;
-	private String email;
 	@Id
 	private String id;
+	private String name;
+	private String email;
 	
 	public User() {
-		
 	}
 
-	public User(String name, String email, String id) {
-		
+	public User(String id, String name, String email) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.id = id;
 	}
 
 	public String getName() {
