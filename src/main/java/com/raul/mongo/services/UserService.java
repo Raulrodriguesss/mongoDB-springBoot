@@ -1,8 +1,10 @@
 package com.raul.mongo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.raul.mongo.domain.User;
@@ -37,4 +39,17 @@ public class UserService {
  		findById(id);
  		repo.deleteById(id);
  	}
+ 	
+ 	public User update(User obj) {
+ 		Optional<User> newObj = repo.findById(obj.getId());
+ 		User user = newObj.orElse(obj);
+ 		updateData(user, obj);
+ 		return repo.save(user);
+ 	}
+
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+		
+	}
 }
